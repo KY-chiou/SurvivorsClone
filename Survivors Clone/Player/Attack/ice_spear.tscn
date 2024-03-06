@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://dfl86t6vqstpo"]
+
+[ext_resource type="Texture2D" uid="uid://sw6ccop811m6" path="res://Textures/Items/Weapons/ice_spear.png" id="1_woxpm"]
+[ext_resource type="Script" path="res://Player/Attack/ice_spear.gd" id="1_yqyuu"]
+[ext_resource type="AudioStream" uid="uid://dpritdmbd5ixf" path="res://Audio/SoundEffect/ice.wav" id="3_xldp1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6esdk"]
+size = Vector2(7.42462, 33.6378)
+
+[sub_resource type="GDScript" id="GDScript_bnhmm"]
+script/source = "extends AudioStreamPlayer
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	pass
+"
+
+[node name="IceSpear" type="Area2D" groups=["attack"]]
+scale = Vector2(0.1, 0.1)
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_yqyuu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_woxpm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.767766, -0.982233)
+rotation = -0.785398
+shape = SubResource("RectangleShape2D_6esdk")
+
+[node name="SoundPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_xldp1")
+volume_db = -10.0
+pitch_scale = 5.0
+autoplay = true
+script = SubResource("GDScript_bnhmm")

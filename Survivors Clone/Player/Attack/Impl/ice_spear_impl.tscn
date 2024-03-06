@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtthce0rbov44"]
+
+[ext_resource type="Script" path="res://Player/Attack/Impl/ice_spear_impl.gd" id="1_3osbq"]
+[ext_resource type="PackedScene" uid="uid://dfl86t6vqstpo" path="res://Player/Attack/ice_spear.tscn" id="2_lftr6"]
+
+[node name="IceSpearImpl" type="Node"]
+script = ExtResource("1_3osbq")
+attackResource = ExtResource("2_lftr6")
+cd = 1.5
+period_once_attack = 0.075

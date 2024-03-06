@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://ml85yti0bq17"]
+
+[ext_resource type="Script" path="res://Player/Attack/Impl/attack_impl.gd" id="1_8p8cn"]
+
+[node name="AttackImpl" type="Node"]
+script = ExtResource("1_8p8cn")
+
+[node name="AttackImplTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[node name="AttackImplAttackTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[connection signal="timeout" from="AttackImplTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="AttackImplAttackTimer" to="." method="_on_attack_timer_timeout"]

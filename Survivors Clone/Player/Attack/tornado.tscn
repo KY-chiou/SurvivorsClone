@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dyv3dhgb4ghkf"]
+
+[ext_resource type="Script" path="res://Player/Attack/tornado.gd" id="1_blhf0"]
+[ext_resource type="Texture2D" uid="uid://ud3kb11p03fg" path="res://Textures/Items/Weapons/tornado.png" id="2_2s1qy"]
+[ext_resource type="AudioStream" uid="uid://c0q63shfw6m7d" path="res://Audio/SoundEffect/tornado.ogg" id="3_7gmdj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h223k"]
+size = Vector2(17, 26)
+
+[node name="Tornado" type="Area2D" groups=["attack"]]
+scale = Vector2(0.1, 0.1)
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_blhf0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_2s1qy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_h223k")
+
+[node name="SoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_7gmdj")
+autoplay = true

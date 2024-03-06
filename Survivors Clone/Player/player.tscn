@@ -1,0 +1,69 @@
+[gd_scene load_steps=9 format=3 uid="uid://c4rxg7fo7foy1"]
+
+[ext_resource type="Texture2D" uid="uid://mfyh8p7h8g8u" path="res://Textures/Player/player_sprite.png" id="1_lb20f"]
+[ext_resource type="Script" path="res://Player/player.gd" id="1_wg6f0"]
+[ext_resource type="PackedScene" uid="uid://xgsbjaiedlgv" path="res://Utility/hurt_box.tscn" id="3_jx6iy"]
+[ext_resource type="PackedScene" uid="uid://d35ou1t3vtwr4" path="res://Player/Attack/Impl/tornado_impl.tscn" id="4_xygje"]
+[ext_resource type="PackedScene" uid="uid://dtthce0rbov44" path="res://Player/Attack/Impl/ice_spear_impl.tscn" id="5_u0hiv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rfc7j"]
+radius = 4.0
+height = 14.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d6ibl"]
+size = Vector2(9.5, 18)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h6t0k"]
+radius = 360.2
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+motion_mode = 1
+script = ExtResource("1_wg6f0")
+movement_speed = 40.0
+hp = 80
+knockback_recovery = 30.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_lb20f")
+hframes = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 1)
+shape = SubResource("CapsuleShape2D_rfc7j")
+
+[node name="walkTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.2
+one_shot = true
+
+[node name="HurtBox" parent="." instance=ExtResource("3_jx6iy")]
+collision_mask = 2
+HurtBoxType = 2
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_d6ibl")
+
+[node name="Attack" type="Node2D" parent="."]
+
+[node name="Tornado" parent="Attack" instance=ExtResource("4_xygje")]
+unique_name_in_owner = true
+
+[node name="IceSpear" parent="Attack" instance=ExtResource("5_u0hiv")]
+unique_name_in_owner = true
+
+[node name="EnemyDetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetectionArea"]
+shape = SubResource("CircleShape2D_h6t0k")
+
+[connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
+[connection signal="body_entered" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_entered"]
+[connection signal="body_exited" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_exited"]
+
+[editable path="HurtBox"]
