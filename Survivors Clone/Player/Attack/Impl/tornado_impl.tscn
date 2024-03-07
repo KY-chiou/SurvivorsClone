@@ -6,5 +6,3 @@
 [node name="TornadoImpl" type="Node"]
 script = ExtResource("1_6r4ey")
 attackResource = ExtResource("2_kdqoq")
-charge_once = 2
-period_once_attack = 0.2

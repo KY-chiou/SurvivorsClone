@@ -1,8 +1,8 @@
-extends AttackImpl
+extends OneShotAttackImpl
 
 func _create_instance() -> Attack:
 	var attack = attackResource.instantiate()
-	attack.position = parent.position
-	attack.target = parent.get_nearest_target()
+	attack.position = body.position
+	attack.target = body.get_nearest_target()
 	attack.level = level
 	return attack

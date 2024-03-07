@@ -1,4 +1,4 @@
-extends Attack
+extends OneShotAttack
 
 const loop_tween_duration := 1.0
 

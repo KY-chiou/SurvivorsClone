@@ -1,8 +1,5 @@
 extends Body
 
-# Attack
-@onready var iceSpearAttack := %IceSpear
-@onready var tornadoAttack := %Tornado
 
 # Enemy
 var closed_emenies: Array[Enemy] = []

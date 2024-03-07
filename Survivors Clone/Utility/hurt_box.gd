@@ -54,12 +54,27 @@ func on_hit_by_attack(attack: Attack):
 	if not attack is Attack:
 		return
 	onHitAttacks.append(attack)
-	var timer = Timer.new()
-	timer.wait_time = attack.periodOfHitToTheSameEnemy
-	timer.timeout.connect(
-		func():
+	await get_tree().create_timer(attack.periodOfHitToTheSameEnemy).timeout
+	
+	# 避免出現錯誤訊息
+	if is_instance_valid(onHitAttacks):
+		if attack:
 			onHitAttacks.erase(attack)
-			timer.queue_free()
-	)
-	add_child(timer)
-	timer.start()
+		else:
+			onHitAttacks.erase(null)
+	
+	# get_tree().create_timer()能生成一次性Timer，timeout後會自動free()可取代下面
+	#var timer = Timer.new()
+	#timer.wait_time = attack.periodOfHitToTheSameEnemy
+	#timer.timeout.connect(
+		#func():
+			#if onHitAttacks:
+				#if attack:
+					#onHitAttacks.erase(attack)
+				#else:
+					#onHitAttacks.erase(null)
+			#timer.queue_free()
+	#)
+	#add_child(timer)
+	#timer.start()
+

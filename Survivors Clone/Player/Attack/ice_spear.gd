@@ -1,4 +1,4 @@
-extends Attack
+extends OneShotAttack
 
 # Visibility > Top level 設置為 true，使之顯示與玩家完全分離
 
@@ -26,7 +26,7 @@ func _ready():
 	# 設定平行後又想接續上的動畫時，使用chain()
 	#tween.chain().tween_property(self, "modulate", Color(1, 0, 0, 1), 1).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	# 結束後呼叫綁定的方法
-	tween.tween_callback(Callable(self, "on_tween_finished"))
+	#tween.tween_callback(Callable(self, "on_tween_finished"))
 	tween.play()
 
 func _physics_process(delta):

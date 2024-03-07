@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://c4rxg7fo7foy1"]
+[gd_scene load_steps=10 format=3 uid="uid://c4rxg7fo7foy1"]
 
 [ext_resource type="Texture2D" uid="uid://mfyh8p7h8g8u" path="res://Textures/Player/player_sprite.png" id="1_lb20f"]
 [ext_resource type="Script" path="res://Player/player.gd" id="1_wg6f0"]
 [ext_resource type="PackedScene" uid="uid://xgsbjaiedlgv" path="res://Utility/hurt_box.tscn" id="3_jx6iy"]
 [ext_resource type="PackedScene" uid="uid://d35ou1t3vtwr4" path="res://Player/Attack/Impl/tornado_impl.tscn" id="4_xygje"]
 [ext_resource type="PackedScene" uid="uid://dtthce0rbov44" path="res://Player/Attack/Impl/ice_spear_impl.tscn" id="5_u0hiv"]
+[ext_resource type="PackedScene" uid="uid://cnh2m43yvx7f1" path="res://Player/Attack/Impl/javelin_impl.tscn" id="6_n6igv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rfc7j"]
 radius = 4.0
@@ -48,11 +49,18 @@ shape = SubResource("RectangleShape2D_d6ibl")
 
 [node name="Attack" type="Node2D" parent="."]
 
-[node name="Tornado" parent="Attack" instance=ExtResource("4_xygje")]
-unique_name_in_owner = true
-
 [node name="IceSpear" parent="Attack" instance=ExtResource("5_u0hiv")]
-unique_name_in_owner = true
+cd = 1.5
+period_once_attack = 0.075
+level = 0
+
+[node name="Tornado" parent="Attack" instance=ExtResource("4_xygje")]
+charge_once = 2
+period_once_attack = 0.2
+level = 0
+
+[node name="Javelin" parent="Attack" instance=ExtResource("6_n6igv")]
+ammo = 3
 
 [node name="EnemyDetectionArea" type="Area2D" parent="."]
 collision_layer = 0

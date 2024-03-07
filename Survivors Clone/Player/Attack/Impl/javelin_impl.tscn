@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnh2m43yvx7f1"]
+
+[ext_resource type="Script" path="res://Player/Attack/Impl/javelin_impl.gd" id="1_qsgqh"]
+[ext_resource type="PackedScene" uid="uid://dukxh1jjkbo3f" path="res://Player/Attack/javelin.tscn" id="2_gifrp"]
+
+[node name="JavelinImpl" type="Node"]
+script = ExtResource("1_qsgqh")
+attackResource = ExtResource("2_gifrp")
+ammo = 1
