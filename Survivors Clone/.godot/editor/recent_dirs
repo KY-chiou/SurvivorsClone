@@ -1,7 +1,8 @@
+res://Objects/Loot
+res://Player
 res://Player/Attack
 res://Core
 res://Player/Attack/Impl
 res://Enemy
 res://Utility
-res://Player
 res://World

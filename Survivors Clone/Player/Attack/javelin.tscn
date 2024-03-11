@@ -46,7 +46,7 @@ disabled = true
 [node name="SoundPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("3_dwy3a")
-volume_db = -10.0
+volume_db = -20.0
 script = SubResource("GDScript_bnhmm")
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("4_k2368")]

@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://mo5s3nelf7n5"]
+
+[ext_resource type="Script" path="res://Player/loot_zone.gd" id="1_3yw2f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qgwmp"]
+radius = 50.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8mict"]
+
+[node name="LootZone" type="Node"]
+script = ExtResource("1_3yw2f")
+
+[node name="Detector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
+shape = SubResource("CircleShape2D_qgwmp")
+
+[node name="Digester" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Digester"]
+shape = SubResource("CircleShape2D_8mict")
+
+[connection signal="area_entered" from="Detector" to="." method="_on_detector_area_entered"]
+[connection signal="area_entered" from="Digester" to="." method="_on_digester_area_entered"]

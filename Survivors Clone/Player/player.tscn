@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c4rxg7fo7foy1"]
+[gd_scene load_steps=15 format=3 uid="uid://c4rxg7fo7foy1"]
 
 [ext_resource type="Texture2D" uid="uid://mfyh8p7h8g8u" path="res://Textures/Player/player_sprite.png" id="1_lb20f"]
 [ext_resource type="Script" path="res://Player/player.gd" id="1_wg6f0"]
@@ -6,6 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://d35ou1t3vtwr4" path="res://Player/Attack/Impl/tornado_impl.tscn" id="4_xygje"]
 [ext_resource type="PackedScene" uid="uid://dtthce0rbov44" path="res://Player/Attack/Impl/ice_spear_impl.tscn" id="5_u0hiv"]
 [ext_resource type="PackedScene" uid="uid://cnh2m43yvx7f1" path="res://Player/Attack/Impl/javelin_impl.tscn" id="6_n6igv"]
+[ext_resource type="PackedScene" uid="uid://mo5s3nelf7n5" path="res://Player/loot_zone.tscn" id="7_6l5qy"]
+[ext_resource type="AudioStream" uid="uid://bxiokwj7ktq30" path="res://Audio/SoundEffect/levelup.ogg" id="8_4j3bu"]
+[ext_resource type="Texture2D" uid="uid://bexubu1quc111" path="res://Textures/GUI/exp_background.png" id="9_p2e6q"]
+[ext_resource type="Texture2D" uid="uid://cod7pt51rhwhb" path="res://Textures/GUI/exp_progress.png" id="10_ryemu"]
+[ext_resource type="FontFile" uid="uid://cycw3tkg1im17" path="res://Font/tenderness.otf" id="11_npyny"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rfc7j"]
 radius = 4.0
@@ -52,12 +57,10 @@ shape = SubResource("RectangleShape2D_d6ibl")
 [node name="IceSpear" parent="Attack" instance=ExtResource("5_u0hiv")]
 cd = 1.5
 period_once_attack = 0.075
-level = 0
 
 [node name="Tornado" parent="Attack" instance=ExtResource("4_xygje")]
 charge_once = 2
 period_once_attack = 0.2
-level = 0
 
 [node name="Javelin" parent="Attack" instance=ExtResource("6_n6igv")]
 ammo = 3
@@ -70,8 +73,44 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetectionArea"]
 shape = SubResource("CircleShape2D_h6t0k")
 
+[node name="LootZone" parent="." instance=ExtResource("7_6l5qy")]
+
+[node name="LevelUpSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("8_4j3bu")
+volume_db = -20.0
+
+[node name="GUILayer" type="CanvasLayer" parent="."]
+
+[node name="GUI" type="Control" parent="GUILayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="ExperienceBar" type="TextureProgressBar" parent="GUILayer/GUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_under = ExtResource("9_p2e6q")
+texture_progress = ExtResource("10_ryemu")
+
+[node name="LevelLabel" type="Label" parent="GUILayer/GUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 540.0
+offset_right = 640.0
+offset_bottom = 20.0
+theme_override_fonts/font = ExtResource("11_npyny")
+theme_override_font_sizes/font_size = 16
+text = "Level: 1"
+horizontal_alignment = 1
+vertical_alignment = 2
+
 [connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
 [connection signal="body_entered" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_entered"]
 [connection signal="body_exited" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_exited"]
+[connection signal="on_looted_experience" from="LootZone" to="." method="_on_loot_zone_on_looted_experience"]
 
 [editable path="HurtBox"]

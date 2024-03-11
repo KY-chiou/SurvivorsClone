@@ -1,11 +1,21 @@
 extends Body
 
+@export var loot_range := 50.0
+@export var experience_ratio := 1.0
+
+@export var experience := 0
+var experience_level := 1
+
+var total_collected_experience := 0
 
 # Enemy
 var closed_emenies: Array[Enemy] = []
 
 # Animation
 @onready var walkTimer = get_node("%walkTimer")
+
+func _ready():
+	calculate_experience()
 
 func _physics_process(_delta):
 	super._physics_process(_delta)
@@ -62,3 +72,33 @@ func _on_enemy_detection_area_body_entered(body):
 func _on_enemy_detection_area_body_exited(body):
 	if closed_emenies.has(body):
 		closed_emenies.erase(body)
+
+func _on_loot_zone_on_looted_experience(gem_exp):
+	experience += gem_exp
+	total_collected_experience += gem_exp
+	calculate_experience()
+
+func calculate_experience():
+	var exp_required = calculate_required_experience()
+	while experience >= exp_required:
+		experience -= exp_required
+		level_up()
+		exp_required = calculate_required_experience()
+	(%ExperienceBar as TextureProgressBar).value = experience * 100.0 / exp_required
+		
+func level_up():
+	experience_level += 1
+	(%LevelLabel as Label).text = "Level: %d" % experience_level
+	var se = $LevelUpSound as AudioStreamPlayer
+	if not se.playing:
+		se.play()
+
+func calculate_required_experience() -> int:
+	var exp_cap: int
+	if experience_level < 20:
+		exp_cap = experience_level * 5
+	elif experience < 40:
+		exp_cap = 100 + (experience_level - 19) * 8
+	else:
+		exp_cap = 260 + (experience_level - 39) * 12
+	return exp_cap

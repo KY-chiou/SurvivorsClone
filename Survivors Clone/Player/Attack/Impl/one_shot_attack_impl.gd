@@ -40,7 +40,7 @@ func on_timer_timeout():
 func on_attack_timer_timeout():
 	if ammo > 0:
 		var attack = _create_instance()
-		body.add_child(attack)
+		body.call_deferred("add_child", attack)
 		ammo -= 1
 		# 若還有子彈，則再次擊發
 		if ammo > 0:
