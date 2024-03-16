@@ -7,7 +7,8 @@ const EXPERIENCE_GEM = preload("res://Objects/Loot/experience_gem.tscn")
 
 # Animation
 @onready var anim = $AnimationPlayer
-const death_anim = preload("res://Enemy/explosion.tscn")
+#const death_anim = preload("res://Enemy/explosion.tscn")
+const PARTICLES_EXPLOSION = preload("res://Enemy/particles_explosion.tscn")
 
 # Audio
 const soundHitResource = preload("res://Audio/SoundEffect/enemy_hit.ogg")
@@ -30,7 +31,7 @@ func create_sound(stream: Resource, volume := -20.0) -> AudioStreamPlayer2D:
 	
 func on_death():
 	# 死亡時生成爆炸動畫，不能加(add_child)在此物件裡，否則回隨著物件刪除而消失
-	var enemy_death = death_anim.instantiate()
+	var enemy_death = PARTICLES_EXPLOSION.instantiate()
 	enemy_death.scale = sprite.scale
 	enemy_death.global_position = global_position
 	# 加在親物件裡

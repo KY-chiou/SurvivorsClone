@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://b2xgty52bxvlt"]
+
+[ext_resource type="Script" path="res://Enemy/particles_explosion.gd" id="1_8p4vw"]
+
+[sub_resource type="Curve" id="Curve_gfbwc"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.620306), 0.0, 0.0, 0, 0, Vector2(0.230241, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ldauq"]
+curve = SubResource("Curve_gfbwc")
+
+[sub_resource type="Gradient" id="Gradient_emajs"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1r60o"]
+gradient = SubResource("Gradient_emajs")
+
+[sub_resource type="Curve" id="Curve_vslf0"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.19244, 0.538943), 0.0, 0.0, 0, 0, Vector2(0.37457, 1), 0.0, 0.0, 0, 0, Vector2(0.993127, 0.819193), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_xmm0w"]
+curve = SubResource("Curve_vslf0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_iqaoi"]
+particle_flag_disable_z = true
+emission_shape = 2
+emission_sphere_radius = 15.0
+angle_max = 463.2
+direction = Vector3(0, 0, 0)
+spread = 0.0
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+orbit_velocity_min = 0.168
+orbit_velocity_max = 0.168
+radial_velocity_max = 395.8
+radial_velocity_curve = SubResource("CurveTexture_xmm0w")
+gravity = Vector3(0, 0, 0)
+damping_min = 20.0
+damping_max = 20.0
+color_ramp = SubResource("GradientTexture1D_1r60o")
+alpha_curve = SubResource("CurveTexture_ldauq")
+
+[node name="ParticlesExplosion" type="GPUParticles2D"]
+emitting = false
+amount = 200
+process_material = SubResource("ParticleProcessMaterial_iqaoi")
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+script = ExtResource("1_8p4vw")
+
+[connection signal="finished" from="." to="." method="_on_finished"]
