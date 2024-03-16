@@ -1,6 +1,14 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1710581433
+::res://::1710582013
 icon.svg::CompressedTexture2D::1730451811002220422::1709363567::1709363608::1::::<><>::
+::res://addons/::1710582002
+::res://addons/godot-git-plugin/::1710582002
+git_plugin.gdextension::GDExtension::-1::1710582002::0::1::::<><>::
+plugin.cfg::TextFile::-1::1710582002::0::1::::<><>::
+THIRDPARTY.md::TextFile::-1::1710582002::0::1::::<><>::
+::res://addons/godot-git-plugin/linux/::1710582002
+::res://addons/godot-git-plugin/macos/::1710582002
+::res://addons/godot-git-plugin/win64/::1710582007
 ::res://Audio/::1709363568
 ::res://Audio/GUI/::1709363608
 click.wav::AudioStreamWAV::4789503814448852838::1709363568::1709363608::1::::<><>::
@@ -22,8 +30,8 @@ body.gd::GDScript::-1::1709814822::0::1::::Body<>CharacterBody2D<>::
 state.gd::GDScript::-1::1709832551::0::1::::State<>Node<>::
 state_machine.gd::GDScript::-1::1709820294::0::1::::<>Node<>::
 state_machine.tscn::PackedScene::5053449594831216943::1709818700::0::1::::<><>::res://Core/state_machine.gd
-::res://Core/Shader/::1710581412
-flash.gdshader::Shader::-1::1710581412::0::1::::<><>::
+::res://Core/Shader/::1710582006
+flash.gdshader::Shader::-1::1710582006::0::1::::<><>::
 ::res://Enemy/::1710580886
 enemy.gd::GDScript::-1::1710580884::0::1::::Enemy<>Body<>::
 enemy_kobold_weak.gd::GDScript::-1::1710577527::0::1::::<>Enemy<>::

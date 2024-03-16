@@ -1,5 +1,10 @@
 extends Body
 
+class_name Player
+
+static func get_first(node: Node) -> Player:
+	return node.get_tree().get_first_node_in_group("player")
+
 @export var loot_range := 50.0
 @export var experience_ratio := 1.0
 
@@ -14,7 +19,13 @@ var closed_emenies: Array[Enemy] = []
 # Animation
 @onready var walkTimer = get_node("%walkTimer")
 
+# GUI
+@onready var level_up_panel = %LevelUp
+@onready var upgrade_options = %UpgradeOptions
+
+
 func _ready():
+	await get_tree().create_timer(1).timeout
 	calculate_experience()
 
 func _physics_process(_delta):
@@ -78,6 +89,7 @@ func _on_loot_zone_on_looted_experience(gem_exp):
 	total_collected_experience += gem_exp
 	calculate_experience()
 
+# 加總經驗並判斷是否升級
 func calculate_experience():
 	var exp_required = calculate_required_experience()
 	while experience >= exp_required:
@@ -87,12 +99,15 @@ func calculate_experience():
 	(%ExperienceBar as TextureProgressBar).value = experience * 100.0 / exp_required
 		
 func level_up():
+	# 更新Label
 	experience_level += 1
 	(%LevelLabel as Label).text = "Level: %d" % experience_level
-	var se = $LevelUpSound as AudioStreamPlayer
-	if not se.playing:
-		se.play()
+	
+	# 通知面板
+	level_up_panel.on_level_up()
 
+		
+# 計算所需經驗
 func calculate_required_experience() -> int:
 	var exp_cap: int
 	if experience_level < 20:

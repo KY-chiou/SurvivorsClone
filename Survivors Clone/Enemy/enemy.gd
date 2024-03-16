@@ -15,7 +15,7 @@ const soundHitResource = preload("res://Audio/SoundEffect/enemy_hit.ogg")
 @onready var soundHit = create_sound(soundHitResource)
 
 # 呼喚場景樹(世界樹)取得player資訊
-@onready var player = get_tree().get_first_node_in_group("player")
+@onready var player = Player.get_first(self)
 @onready var loot_base = get_tree().get_first_node_in_group("loot")
 
 func distance_to_player() -> float:

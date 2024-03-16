@@ -1,3 +1,4 @@
+res://Utility
 res://Enemy
 res://Core/Shader
 res://Core
@@ -5,5 +6,4 @@ res://Objects/Loot
 res://Player
 res://Player/Attack
 res://Player/Attack/Impl
-res://Utility
 res://World
