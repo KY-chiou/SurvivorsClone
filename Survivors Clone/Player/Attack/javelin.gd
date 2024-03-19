@@ -21,9 +21,30 @@ func update():
 		1:
 			speed = 200
 			damage = 10
-			knockback_amount = 10
-			attack_size = 1.0
-			cd = 4.0
+			knockback_amount = 100
+			attack_size = 1.0 * attack_size_ratio
+			cd = 5.0 * cd_ratio
 			paths = 1
+		2:
+			speed = 200
+			damage = 10
+			knockback_amount = 100
+			attack_size = 1.0 * attack_size_ratio
+			cd = 5.0 * cd_ratio
+			paths = 2
+		3:
+			speed = 200
+			damage = 10
+			knockback_amount = 100
+			attack_size = 1.0 * attack_size_ratio
+			cd = 5.0 * cd_ratio
+			paths = 3
+		4:
+			speed = 200
+			damage = 15
+			knockback_amount = 120
+			attack_size = 1.0 * attack_size_ratio
+			cd = 5.0 * cd_ratio
+			paths = 3
 	
 	scale = Vector2.ONE * attack_size

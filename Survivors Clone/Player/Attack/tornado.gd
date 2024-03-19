@@ -16,11 +16,16 @@ func _ready():
 	hp = 10000
 	lifetime = 20.0
 	match level:
-		1:
+		1, 2, 3:
 			speed = 100
 			damage = 5
 			knockback_amount = 100
-			attack_size = 1.0
+			attack_size = 1.0 * attack_size_ratio
+		4:
+			speed = 100
+			damage = 5
+			knockback_amount = 125
+			attack_size = 1.0 * attack_size_ratio
 			
 	# 生成左右偏移角度
 	var move_to_less := Vector2.ZERO

@@ -9,9 +9,21 @@ var damage: int
 var knockback_amount: int
 var attack_size: float
 
+var body: Node
+
 @export var periodOfHitToTheSameEnemy := 2.0
 
+var attack_size_ratio: float:
+	get:
+		return 1.0 if not body is Player else 1.0 + (body as Player).spell_size
+
 func _ready():
+	body = get_parent()
+	while not body is Body:
+		body = body.get_parent()
+		if body == get_tree():
+			break
+			
 	top_level = true	# 使之顯示與玩家完全分離
 	#area_entered.connect(Callable(self, "on_area_entered"))
 	

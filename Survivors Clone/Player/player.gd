@@ -21,10 +21,24 @@ var closed_emenies: Array[Enemy] = []
 
 # GUI
 @onready var level_up_panel = %LevelUp
-@onready var upgrade_options = %UpgradeOptions
 
+# Attack
+@onready var ice_spear: OneShotAttackImpl = %IceSpear
+@onready var tornado: OneShotAttackImpl = %Tornado
+@onready var javelin: SummonAttackImpl = %Javelin
+
+# Upgrade
+@export var maxhp: int
+
+var armor := 0
+var additional_attacks := 0
+var speed := 0.0
+var spell_cooldown := 0.0
+var spell_size := 0.0
 
 func _ready():
+	maxhp = hp
+	level_up_panel.on_upgraded.connect(on_upgraded)
 	await get_tree().create_timer(1).timeout
 	calculate_experience()
 
@@ -55,7 +69,8 @@ func movement():
 
 # 將 HurtBoxType 設為 DisableHitbox，使敵人攻擊後產生0.5秒的冷卻時間
 func _on_hurt_box_hurt(damage, knock_angle, knock_amount):
-	on_hurt(damage, knock_angle, knock_amount)
+	var new_damage = clamp(damage - armor, 1, 999)
+	on_hurt(new_damage, knock_angle, knock_amount)
 	print(hp)
 		
 func get_random_target() -> Vector2:
@@ -92,10 +107,9 @@ func _on_loot_zone_on_looted_experience(gem_exp):
 # 加總經驗並判斷是否升級
 func calculate_experience():
 	var exp_required = calculate_required_experience()
-	while experience >= exp_required:
+	if experience >= exp_required:
 		experience -= exp_required
 		level_up()
-		exp_required = calculate_required_experience()
 	(%ExperienceBar as TextureProgressBar).value = experience * 100.0 / exp_required
 		
 func level_up():
@@ -117,3 +131,28 @@ func calculate_required_experience() -> int:
 	else:
 		exp_cap = 260 + (experience_level - 39) * 12
 	return exp_cap
+
+# https://pastebin.com/kC9ab42b
+func on_upgraded(upgrade: String):
+	match upgrade:
+		"icespear1", "icespear2", "icespear3", "icespear4":
+			ice_spear._upgrade(upgrade)
+		"tornado1", "tornado2", "tornado3", "tornado4":
+			tornado._upgrade(upgrade)
+		"javelin1", "javelin2", "javelin3", "javelin4":
+			javelin._upgrade(upgrade)
+		"armor1", "armor2", "armor3", "armor4":
+			armor += 1
+		"speed1", "speed2", "speed3", "speed4":
+			movement_speed += 20.0
+		"tome1", "tome2", "tome3", "tome4":
+			spell_size += 0.10
+		"scroll1", "scroll2", "scroll3", "scroll4":
+			spell_cooldown += 0.05
+		"ring1", "ring2":
+			additional_attacks += 1
+		"food":
+			hp += 20
+			hp = clamp(hp, 0, maxhp)
+	calculate_experience()
+	

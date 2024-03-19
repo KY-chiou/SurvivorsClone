@@ -10,12 +10,18 @@ func _ready():
 	angle = global_position.direction_to(target)	# alreay applied normalized()
 	rotation = angle.angle() + deg_to_rad(135)	 # unit: rad
 	match level:
-		1:
-			hp = 2
+		1, 2:
+			hp = 1
 			speed = 100
 			damage = 5
 			knockback_amount = 100
-			attack_size = 1.0
+			attack_size = 1.0 * attack_size_ratio
+		3, 4:
+			hp = 2
+			speed = 100
+			damage = 8
+			knockback_amount = 100
+			attack_size = 1.0 * attack_size_ratio
 			
 	# Tween: 改變節點屬性的Animation
 	var tween = create_tween()

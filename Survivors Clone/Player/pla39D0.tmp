@@ -26,6 +26,7 @@ radius = 360.2
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 motion_mode = 1
 script = ExtResource("1_wg6f0")
+experience = 100
 movement_speed = 80.0
 hp = 80
 knockback_recovery = 30.0
@@ -64,12 +65,10 @@ period_once_attack = 0.075
 unique_name_in_owner = true
 charge_once = 2
 period_once_attack = 0.2
-level = 0
 
 [node name="Javelin" parent="Attack" instance=ExtResource("6_n6igv")]
 unique_name_in_owner = true
-ammo = 0
-level = 0
+ammo = 3
 
 [node name="EnemyDetectionArea" type="Area2D" parent="."]
 collision_layer = 0
